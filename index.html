@@ -1,247 +1,65 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
-import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
-import { ReactLenis } from "@studio-freight/react-lenis";
-import { 
-  Github, 
-  Instagram, 
-  Mail, 
-  MapPin, 
-  ArrowUpRight, 
-  MessageCircle, 
-  Code2, 
-  ExternalLink,
-  ChevronRight
-} from "lucide-react";
-
-// --- 1. DATA CENTER (Sesuaikan isi CV Anda di sini) ---
-const CV_DATA = {
-  name: "Abdul Hidayatullah",
-  role: "Web Developer & Designer",
-  bio: "Membangun pengalaman digital yang interaktif dengan fokus pada estetika dan performa modern.",
-  location: "Cikampek, West Java, Indonesia",
-  googleMapsEmbed: "", // Kosongkan jika tidak ada link valid
-  socials: {
-    github: "https://github.com",
-    instagram: "https://instagram.com",
-    whatsapp: "628123456789", // Format: 62...
-    email: "email@example.com"
-  },
-  services: [
-    { title: "Web Development", desc: "Membangun website responsif dengan Next.js & Tailwind." },
-    { title: "UI/UX Design", desc: "Perancangan interface yang bersih, modern, dan user-centric." },
-    { title: "Branding", desc: "Membangun identitas visual yang konsisten untuk brand Anda." }
-  ],
-  skills: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "GitHub", "Acode"],
-  projects: [
-    { title: "Personal Portfolio v1", category: "Web Design", link: "#" },
-    { title: "Interactive Quiz App", category: "Web Logic", link: "#" },
-  ],
-  experiences: [
-    { company: "Independent Projects", role: "Frontend Developer", period: "2024 - Present" },
-  ],
-  testimonials: [] // Kosongkan jika tidak ada data
-};
-
-// --- 2. KOMPONEN KECIL ---
-
-const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string }) => (
-  <motion.div 
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    className="mb-12"
-  >
-    <span className="text-xs uppercase tracking-[0.3em] text-neutral-500">{subtitle}</span>
-    <h2 className="text-4xl font-bold mt-2 tracking-tighter italic">{title}</h2>
-  </motion.div>
-);
-
-// --- 3. HALAMAN UTAMA ---
-
-export default function PortfolioPage() {
-  const [isDarkMode, setIsDarkMode] = useState(true);
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
-
-  return (
-    <ReactLenis root options={{ lerp: 0.1, duration: 1.5 }}>
-      <main className={`${isDarkMode ? "bg-black text-white" : "bg-white text-black"} transition-colors duration-500 selection:bg-neutral-500 selection:text-white`}>
-        
-        {/* Progress Bar */}
-        <motion.div className="fixed top-0 left-0 right-0 h-[2px] bg-neutral-500 z-[100] origin-left" style={{ scaleX }} />
-
-        {/* Navbar */}
-        <nav className="fixed top-0 w-full z-50 border-b border-white/5 backdrop-blur-xl">
-          <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-bold text-xl tracking-tighter uppercase">
-              {CV_DATA.name.split(" ")[0]} <span className="opacity-40 tracking-normal">.</span>
-            </motion.div>
-            
-            <div className="hidden md:flex gap-10 text-[10px] font-bold uppercase tracking-[0.2em]">
-              <a href="#about" className="hover:text-neutral-500 transition">About</a>
-              <a href="#work" className="hover:text-neutral-500 transition">Work</a>
-              <a href="#contact" className="hover:text-neutral-500 transition">Contact</a>
-            </div>
-
-            <button 
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              className="px-4 py-2 border border-neutral-800 rounded-full text-[10px] uppercase tracking-widest hover:bg-white hover:text-black transition-all"
-            >
-              {isDarkMode ? "Light Mode" : "Dark Mode"}
-            </button>
-          </div>
-        </nav>
-
-        {/* Hero Section */}
-        <section className="min-h-screen flex flex-col justify-center px-6 relative overflow-hidden">
-          <div className="max-w-7xl mx-auto w-full">
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <h1 className="text-[12vw] md:text-[8vw] font-bold leading-[0.9] tracking-tighter italic mb-8">
-                {CV_DATA.role.split(" ").map((word, i) => (
-                  <span key={i} className={i % 2 !== 0 ? "opacity-30" : ""}>{word} </span>
-                ))}
-              </h1>
-              <p className="max-w-lg text-lg md:text-xl opacity-60 leading-relaxed font-light">
-                {CV_DATA.bio}
-              </p>
-            </motion.div>
-          </div>
-          {/* Background Decor */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] bg-neutral-500/5 rounded-full blur-[120px] -z-10" />
-        </section>
-
-        {/* Marquee Experience */}
-        <div className="py-10 border-y border-neutral-900 overflow-hidden flex whitespace-nowrap bg-neutral-950">
-          {[1, 2, 3].map((i) => (
-            <motion.div 
-              key={i}
-              animate={{ x: [0, -1000] }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="flex items-center gap-10 pr-10 text-4xl md:text-6xl font-black uppercase italic opacity-10"
-            >
-              <span>{CV_DATA.name}</span>
-              <span>•</span>
-              <span>Available for Hire</span>
-              <span>•</span>
-            </motion.div>
-          ))}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdul Hidayatullah | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,700;1,800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #050505; color: white; scroll-behavior: smooth; }
+        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .text-gradient { background: linear-gradient(to right, #fff, #555); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    </style>
+</head>
+<body>
+    <nav class="fixed top-0 w-full z-50 glass py-5 px-6 flex justify-between items-center">
+        <div class="font-bold text-xl tracking-tighter italic">ABDUL.</div>
+        <div class="flex gap-6 text-[10px] uppercase tracking-[0.3em] opacity-40">
+            <a href="#about" class="hover:opacity-100 transition">Tentang</a>
+            <a href="#contact" class="hover:opacity-100 transition">Kontak</a>
         </div>
+    </nav>
 
-        {/* About & Skills */}
-        <section id="about" className="py-32 px-6 max-w-7xl mx-auto grid md:grid-cols-2 gap-20">
-          <div>
-            <SectionHeading title="Keahlian & Layanan" subtitle="Expertise" />
-            <div className="grid gap-8">
-              {CV_DATA.services.map((s, i) => (
-                <motion.div 
-                  key={i} 
-                  whileHover={{ x: 10 }}
-                  className="group border-b border-neutral-900 pb-6 cursor-default"
-                >
-                  <h3 className="text-xl font-bold group-hover:text-neutral-400 transition">{s.title}</h3>
-                  <p className="opacity-50 mt-2 text-sm">{s.desc}</p>
-                </motion.div>
-              ))}
+    <section class="min-h-screen flex flex-col justify-center px-6 max-w-5xl mx-auto pt-20">
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <h1 class="text-7xl md:text-9xl font-black tracking-tighter italic leading-[0.85] mb-8 text-gradient">
+                DESIGNER <br> & DEVELOPER.
+            </h1>
+            <p class="max-w-md opacity-40 text-lg leading-relaxed font-light">
+                Berdosili di Cikampek. Fokus pada pembuatan website interaktif menggunakan Acode dan GitHub.
+            </p>
+            <div class="mt-10 flex gap-4">
+                <a href="#contact" class="px-8 py-4 bg-white text-black font-bold uppercase tracking-widest text-[10px] rounded-full hover:scale-105 transition">Mari Bicara</a>
             </div>
-          </div>
-          
-          <div className="bg-neutral-900/30 p-10 rounded-3xl border border-white/5">
-            <h3 className="text-sm uppercase tracking-widest mb-8 opacity-40">Tech Stack</h3>
-            <div className="flex flex-wrap gap-3">
-              {CV_DATA.skills.map((skill) => (
-                <span key={skill} className="px-5 py-2 bg-white/5 border border-white/10 rounded-full text-xs font-medium">
-                  {skill}
-                </span>
-              ))}
+        </div>
+    </section>
+
+    <section id="about" class="py-32 px-6 max-w-5xl mx-auto border-t border-neutral-900">
+        <h2 class="text-sm uppercase tracking-[0.5em] text-neutral-600 mb-12">Main Tech Stack</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4" data-aos="fade-up">
+            <div class="p-8 glass rounded-3xl hover:bg-white/5 transition">
+                <p class="font-bold tracking-tighter">Next.js & React</p>
             </div>
-          </div>
-        </section>
-
-        {/* Projects */}
-        <section id="work" className="py-32 px-6 max-w-7xl mx-auto">
-          <SectionHeading title="Proyek Pilihan" subtitle="Selected Works" />
-          <div className="grid md:grid-cols-2 gap-10">
-            {CV_DATA.projects.map((p, i) => (
-              <motion.div 
-                key={i}
-                whileHover={{ y: -10 }}
-                className="group relative aspect-video bg-neutral-900 rounded-2xl overflow-hidden border border-white/5"
-              >
-                <div className="absolute inset-0 p-8 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent">
-                  <span className="text-[10px] uppercase tracking-widest opacity-60">{p.category}</span>
-                  <h3 className="text-2xl font-bold mt-2 flex items-center gap-2">
-                    {p.title} <ArrowUpRight className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-all" />
-                  </h3>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section id="contact" className="py-32 px-6 max-w-7xl mx-auto border-t border-neutral-900">
-          <div className="grid md:grid-cols-2 gap-20">
-            <div>
-              <h2 className="text-5xl md:text-7xl font-bold tracking-tighter italic mb-10">Ayo Mulai <br/> Sesuatu.</h2>
-              
-              <div className="space-y-6">
-                <div className="flex items-center gap-4 opacity-70">
-                  <MapPin size={20} />
-                  <span>{CV_DATA.location}</span>
-                </div>
-                <div className="flex items-center gap-4 opacity-70">
-                  <Mail size={20} />
-                  <span>{CV_DATA.socials.email}</span>
-                </div>
-              </div>
-
-              <div className="flex gap-6 mt-12">
-                {CV_DATA.socials.github && <a href={CV_DATA.socials.github} className="p-4 bg-neutral-900 rounded-full hover:bg-white hover:text-black transition"><Github size={20} /></a>}
-                {CV_DATA.socials.instagram && <a href={CV_DATA.socials.instagram} className="p-4 bg-neutral-900 rounded-full hover:bg-white hover:text-black transition"><Instagram size={20} /></a>}
-                {CV_DATA.socials.whatsapp && (
-                  <a href={`https://wa.me/${CV_DATA.socials.whatsapp}`} className="flex items-center gap-2 px-6 py-4 bg-green-600/10 text-green-500 rounded-full hover:bg-green-600 hover:text-white transition">
-                    <MessageCircle size={20} />
-                    <span className="text-sm font-bold uppercase tracking-widest">WhatsApp</span>
-                  </a>
-                )}
-              </div>
+            <div class="p-8 glass rounded-3xl hover:bg-white/5 transition">
+                <p class="font-bold tracking-tighter">Tailwind CSS</p>
             </div>
-
-            <div className="space-y-6">
-              {CV_DATA.googleMapsEmbed ? (
-                <iframe 
-                  src={CV_DATA.googleMapsEmbed}
-                  className="w-full h-64 rounded-3xl grayscale opacity-50 contrast-125"
-                  loading="lazy"
-                ></iframe>
-              ) : (
-                <div className="w-full h-64 bg-neutral-900 rounded-3xl flex items-center justify-center italic opacity-30 border border-dashed border-white/20">
-                  Maps Location not provided
-                </div>
-              )}
-              
-              <form className="space-y-4">
-                <input type="text" placeholder="NAMA" className="w-full bg-neutral-900 border-none rounded-2xl px-6 py-4 text-sm focus:ring-1 focus:ring-white transition" />
-                <input type="email" placeholder="EMAIL" className="w-full bg-neutral-900 border-none rounded-2xl px-6 py-4 text-sm focus:ring-1 focus:ring-white transition" />
-                <textarea placeholder="PESAN" rows={4} className="w-full bg-neutral-900 border-none rounded-2xl px-6 py-4 text-sm focus:ring-1 focus:ring-white transition"></textarea>
-                <button className="w-full py-4 bg-white text-black font-bold uppercase tracking-widest rounded-2xl hover:bg-neutral-200 transition">Kirim Pesan</button>
-              </form>
+            <div class="p-8 glass rounded-3xl hover:bg-white/5 transition">
+                <p class="font-bold tracking-tighter">Mobile Coding</p>
             </div>
-          </div>
-        </section>
+        </div>
+    </section>
 
-        {/* Footer */}
-        <footer className="py-10 text-center opacity-30 text-[10px] uppercase tracking-[0.4em]">
-          &copy; {new Date().getFullYear()} {CV_DATA.name}. All Rights Reserved.
-        </footer>
+    <footer id="contact" class="py-32 px-6 max-w-5xl mx-auto border-t border-neutral-900">
+        <div class="text-center">
+            <h2 class="text-4xl md:text-6xl font-bold tracking-tighter italic mb-8">Punya ide hebat?</h2>
+            <a href="https://wa.me/628123456789" class="text-2xl underline decoration-neutral-700 underline-offset-8 hover:text-neutral-400 transition italic">Hubungi via WhatsApp</a>
+        </div>
+        <p class="mt-40 text-center text-[10px] uppercase tracking-[0.5em] opacity-20">&copy; 2026 Abdul Hidayatullah.</p>
+    </footer>
 
-      </main>
-    </ReactLenis>
-  );
-}
+    <script> AOS.init({ once: true }); </script>
+</body>
+</html>
